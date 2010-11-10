@@ -1,0 +1,43 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="netcaa.SiteMaster" %>
+<%@ Register Src="/Controls/navbar.ascx" TagName="navbar" TagPrefix="uc2" %>
+<%@ Register Src="/Controls/Scoreboard.ascx" TagName="Scoreboard" TagPrefix="uc3" %>
+<%@ Register Src="/Controls/alerts.ascx" TagName="alerts" TagPrefix="uc4" %>
+<%@ Register Src="/Controls/TopPlayersLastNight.ascx" TagName="TopPlayersLastNight" TagPrefix="uc5" %>
+<%@ Register Src="/Controls/footer.ascx" TagName="footer" TagPrefix="uc1" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head runat="server">
+    <title>NetCAA</title>
+    <link href="/Styles/netcaa.css" rel="stylesheet" type="text/css" />
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="Form1" method="post" runat="server">
+    <table id="Table1" cellpadding="8" bgcolor="white" width="840">
+        <tr>
+            <td width="160" rowspan="2">
+                <uc2:navbar id="Navbar2" runat="server" />
+            </td>
+            <td width="680" height="50" colspan="2">
+                <uc3:scoreboard id="Scoreboard2" runat="server" />
+            </td>
+        </tr>
+        <tr>
+            <td width="560" colspan="2">
+                <br />
+                <asp:Label ID="lblPageTitle" runat="server" CssClass="pagetitle">
+                    <asp:ContentPlaceHolder ID="Title" runat="server">
+                    </asp:ContentPlaceHolder>
+                </asp:Label>
+                <hr align="left" width="100%" color="red" size="1" />
+                <asp:ContentPlaceHolder ID="Main" runat="server">
+                </asp:ContentPlaceHolder>
+            </td>
+        </tr>
+    </table>
+    <uc1:footer id="Footer1" runat="server" />
+    </form>
+</body>
+</html>

@@ -1,0 +1,16 @@
+Logger/bin/Debug/*
+Logger/bin/Release/*
+Logger/obj/*
+Netcaa/WebCharts/*
+Netcaa/bin/Debug/*
+Netcaa/bin/Release/*
+Netcaa/obj/*
+StatGrabber/bin/Debug/*
+StatGrabber/bin/Release/*
+StatGrabber/obj/*
+StatGrabberTest/bin/Debug/*
+StatGrabberTest/bin/Release/*
+StatGrabberTest/obj/*
+Netcaa/bin/Logger.*
+Netcaa/bin/Netba.*
+Netcaa/bin/StatGrabber.*

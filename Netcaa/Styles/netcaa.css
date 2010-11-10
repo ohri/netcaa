@@ -1,0 +1,139 @@
+body
+{
+	font-family: "Arial";
+	background-color: White;
+    font-size: small;
+}
+
+td
+{
+	vertical-align: top;
+}
+
+a
+{
+	text-decoration: none;
+}
+
+a:hover
+{
+	text-decoration:underline;
+}
+
+.subtlegrid
+{
+    border-style: none;
+	color: Black;
+	font-size:xx-small;
+}
+
+.subtlegrid td
+{
+    border-style: none;
+    margin: 3px 3px 3px 3px;
+    padding: 5px 5px 5px 5px;
+	vertical-align:top;
+}
+
+.grid
+{
+	border: solid 1px;
+	border-color: Red;
+	color: Black;
+}
+
+.grid td
+{
+    border: 1px;
+    border-style: solid;
+    border-color: Red;
+    margin: 3px 3px 3px 3px;
+    padding: 5px 5px 5px 5px;
+	vertical-align:top;
+}
+
+.gridheader
+{
+	font-weight: bold;
+}
+
+.gridheader th
+{    
+	margin: 3px 3px 3px 3px;
+    padding: 5px 5px 5px 5px;
+}
+
+.gridheader a
+{
+	text-decoration: none;
+}
+
+.gridheader a:hover
+{
+	text-decoration: underline;
+}
+
+.pagetitle
+{
+	Font-Style:italic;
+	Font-Size:x-large;
+}
+
+.bolditem
+{
+	font-weight: bold;
+}
+
+.italicitem
+{
+	font-style:italic;
+}
+
+.navdivider 
+{
+	/*background-color:Maroon;*/
+	background-color:Silver;
+	font-size: 1px; 
+	height: 1px; 
+	line-height: 1px;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	/*overflow-y: hidden;*/
+	overflow: hidden;
+}
+
+.handcursor
+{
+	cursor:hand;
+}
+
+navbar
+{
+	FONT-WEIGHT: bold; 
+	COLOR: white; 
+	BACKGROUND-COLOR: red;
+}
+
+
+navtext
+{
+	color: White;
+	background-color: Red;
+	font-size: 12px;
+}
+
+a.navtext, a.navtext:visited, a.navtext:link, a.navtext:active, a.navtext:hover
+{	
+	font-weight: bold;
+	color: White;
+	background-color: Red;
+	font-size: 12px;
+}
+
+
+.sbBox { position: relative; padding: 1px; float: left; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10px; color: #333333;}
+.sbGame { width:70px; height:28px; border: 1px solid #CCCCCC; background-color: #F2F2F2}
+.regScoreAway { position: absolute; left: 40px; top: 5px; padding-left: 1px; font-weight: bold; z-index: 4;}
+.regScoreHome { position: absolute; left: 40px; top: 16px; padding-left: 1px; font-weight: bold; z-index: 4;}
+.regNameAway { position: absolute; left: 4px; top: 5px; padding-left: 1px; font-weight: bold; z-index: 4;}
+.regNameHome { position: absolute; left: 4px; top: 16px; padding-left: 1px; font-weight: bold; z-index: 4;}
