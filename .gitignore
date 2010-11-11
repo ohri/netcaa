@@ -14,3 +14,6 @@ StatGrabberTest/obj/*
 Netcaa/bin/Logger.*
 Netcaa/bin/Netba.*
 Netcaa/bin/StatGrabber.*
+NetbaTradeAggregator/obj/*
+NetbaTradeAggregator/bin/Debug/*
+NetbaTradeAggregator/bin/Release/*
