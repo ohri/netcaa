@@ -54,7 +54,7 @@ namespace StatGrabber
 					if( ePos > -1 )
 					{
                         string url = "http://espn.go.com" + page.Substring(sPos, ePos - sPos);
-                        if ( retval.BinarySearch( url ) < 0 )
+                        if (!retval.Contains(url))
                         {
                             retval.Add( url );
                         }
