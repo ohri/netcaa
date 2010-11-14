@@ -3,251 +3,235 @@ using System.Collections;
 using System.Net;
 using System.IO;
 using System.Text.RegularExpressions;
-using System.Data.SqlClient;
-using Microsoft.ApplicationBlocks.Data;
+using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
+using System.Data.Common;
 
 namespace StatGrabber
 {
-	/// <summary>
-	/// Summary description for Class1.
-	/// </summary>
-	public class PlayerPerformance
-	{
-		public PlayerPerformance()
-		{
-			Offense = 0;
-			Defense = 0;
-		}
+    public class StatGrabber
+    {
+        public StatGrabber()
+        {
+        }
 
-		public string FirstName;
-		public string LastName;
-		public int Offense;
-		public int Defense;
-		public int Minutes;
-		public string TeamName;
-	};
-	
-	public class StatGrabber
-	{
-		public StatGrabber()
-		{
-		}
+        public ArrayList GetGames( DateTime DateToGet )
+        {
+            // temporary limiting to confid 7 (big ten)
+            // this will need to loop over the appropriate conferences
+            string page = WebPageToString( "http://scores.espn.go.com/ncb/scoreboard?confId=7&date=" + DateToString( DateToGet ) );
 
-		public ArrayList GetGames( DateTime DateToGet )
-		{
-			string page = WebPageToString(  "http://espn.go.com/nba/scoreboard?date=" + DateToString( DateToGet ) );
+            ArrayList retval = new ArrayList();
 
-			ArrayList retval = new ArrayList();
-
-			Regex boxstart = new Regex( @"/nba/boxscore\?gameId=" );
-			//Extract the address
-			Match m = boxstart.Match( page );
-			while( m.Success )
-			{
-				int sPos = m.Index;
-				int ePos = 0;
-				if (sPos > 0)
-				{
-					Regex end = new Regex( "\"" );
-					Match me = end.Match( page, sPos );
-					ePos = me.Index;
-					if( ePos > -1 )
-					{
-                        string url = "http://espn.go.com" + page.Substring(sPos, ePos - sPos);
-                        if (!retval.Contains(url))
+            Regex boxstart = new Regex( @"/ncb/boxscore\?gameId=" );
+            //Extract the address
+            Match m = boxstart.Match( page );
+            while( m.Success )
+            {
+                int sPos = m.Index;
+                int ePos = 0;
+                if( sPos > 0 )
+                {
+                    Regex end = new Regex( "\"" );
+                    Match me = end.Match( page, sPos );
+                    ePos = me.Index;
+                    if( ePos > -1 )
+                    {
+                        string url = "http://espn.go.com" + page.Substring( sPos, ePos - sPos );
+                        if( !retval.Contains( url ) )
                         {
                             retval.Add( url );
                         }
-					}
-				}
-				m = m.NextMatch();
-			}
+                    }
+                }
+                m = m.NextMatch();
+            }
 
-			return retval;
-		}
+            // remove the last three ... they are 'leader' boxes, not this conference
+            retval.RemoveRange( retval.Count - 3, 3 );
 
-		public ArrayList GetPerformances( ArrayList GameURLs )
-		{
-			ArrayList perfs = new ArrayList();
+            return retval;
+        }
 
-			//Regex GetTeams = new Regex( @"<td.*?COLSPAN=14\sclass=head\salign=center><strong>(.*)?</td>" );
-			//Regex GetTeams = new Regex( @"<td.*?>(.*?)</td>" );
-            //Regex GetTeams = new Regex( @"<td colspan=.14. style=.text-align: center; background: #[ABCDEFabcdef0-9]{6};.>(.*)?</td>" );
-            //Regex GetTeams = new Regex(@"<td colspan=.15. style=.text-align: center; background: #[ABCDEFabcdef0-9]{6};.>(.*)?</td>");
-            //Regex GetTeams = new Regex(@"<td colspan=.15. style=.text-align: center; background: #[ABCDEFabcdef0-9]{6} !important;.>(.*)?</td>");
-            Regex GetTeams = new Regex(@"</a>(.*)</th></tr><tr align=.right.>");
-            //Regex GetPlayerStatRows = new Regex( @"<tr\s+align=right\s+valign=middle\s+bgcolor=.+?>\n<td\s+align=left\s+nowrap>(.*?)</td></tr>" );
-			//Regex GetPlayerStatRows = new Regex( @"<a href=./nba/players/profile.statsId=\d{2,}.>(.*)?</td></tr>" );
-			Regex GetPlayerStatRows = new Regex( @"<td style=.text-align:left;. nowrap>(.*)?</td></tr>" );
+        public ArrayList GetGamePerformances( string url )
+        {
+            Regex GetTeams = new Regex( @"</div>(.*)</th></tr><tr align=.right. class=.colhead.>" );
+            Regex GetPlayerStatRows = new Regex( @"<td style=.text-align:left;. nowrap>(.*)?</td></tr>" );
+            Regex SplitStatRows = new Regex( @"</td><td.*?>" );
+            Regex ExtractPlayerName = new Regex( @"^(?:.+?>)?([\w\.\'-]+)\s+?([\w\.\'-]+(?:\s[\w.]+)?)(?:.*?)?$" );
+            Regex ExtractShots = new Regex( @"([0-9]*)\-([0-9]*)" );
+            string Page = WebPageToString( url );
 
-			Regex SplitStatRows = new Regex( @"</td><td.*?>" );
-			//Regex ExtractPlayerName = new Regex( @"<.*>(\S*)\s(.*)<.*" );
-			//Regex ExtractPlayerName = new Regex( @"^(?:.+?>)?(.+?)\s+?(.+?)(?:<.+?)?$" );
-			Regex ExtractPlayerName = new Regex( @"^(?:.+?>)?([\w\.\'-]+)\s+?([\w\.\'-]+(?:\s[\w.]+)?)(?:.*?)?$" );
-			Regex ExtractThrees = new Regex( @"([0-9])+\-[0-9]+" );
-			Regex NeneException = new Regex( @".*Nene.*", RegexOptions.IgnoreCase );
+            MatchCollection TeamMatches = GetTeams.Matches( Page );
+            if( TeamMatches.Count != 2 )
+            {
+                StatGrabberException ex = new StatGrabberException(
+                    "Couldn't find the teams in game "
+                    + url
+                    + " ... maybe ESPN hasn't finalized them?" );
+                throw ex;
+            }
 
-			foreach( string GameURL in GameURLs )
-			{
-				string Page = WebPageToString( GameURL );
+            int HomeAfterThis = TeamMatches[1].Groups[1].Index;
 
-				MatchCollection TeamMatches = GetTeams.Matches( Page );
-                if (TeamMatches.Count != 2)
+            ArrayList perfs = new ArrayList();
+            MatchCollection StatLines = GetPlayerStatRows.Matches( Page );
+            foreach( Match i in StatLines )
+            {
+                if( i.Groups.Count < 2 )
                 {
                     StatGrabberException ex = new StatGrabberException(
-                        "Couldn't find the teams in game "
-                        + GameURL
-                        + " ... maybe ESPN hasn't finalized them?");
+                        "Seems to be a problem in the statline structure in game "
+                        + url
+                        + " ... maybe ESPN has changed format?" );
                     throw ex;
                 }
 
-				int HomeAfterThis = TeamMatches[1].Groups[1].Index;
+                string[] Cells = SplitStatRows.Split( i.Groups[1].Value );
 
-				MatchCollection StatLines = GetPlayerStatRows.Matches( Page );
-				foreach( Match i in StatLines )
-				{
-                    if( i.Groups.Count < 2 )
+                PlayerPerformance p = new PlayerPerformance();
+                MatchCollection PlayerName = ExtractPlayerName.Matches( Cells[0] );
+                if( PlayerName.Count < 1 )
+                {
+                    StatGrabberException ex = new StatGrabberException(
+                        "Player's name doesn't match the pattern: " + Cells[0] );
+                    throw ex;
+                }
+                else
+                {
+                    p.FirstName = PlayerName[0].Groups[1].Value;
+                    p.LastName = PlayerName[0].Groups[2].Value;
+                }
+
+                if( i.Index >= HomeAfterThis )
+                {
+                    p.TeamName = TeamMatches[1].Groups[1].Value;
+                }
+                else
+                {
+                    p.TeamName = TeamMatches[0].Groups[1].Value;
+                }
+                try
+                {
+                    // cell 1 has minutes
+                    p.Minutes = Convert.ToInt32( Cells[1] );
+
+                    // cell 2 has made-attempted FG
+                    Match fgs = ExtractShots.Match( Cells[2] );
+                    p.ShotsMade = Convert.ToInt32( fgs.Groups[1].Value );
+                    p.ShotAttempts = Convert.ToInt32( fgs.Groups[2].Value );
+
+                    // cell 3 has made-attempted on 3 pointers
+                    Match threes = ExtractShots.Match( Cells[3] );
+                    p.ThreesMade = Convert.ToInt32( threes.Groups[1].Value );
+                    p.ThreeAttempts = Convert.ToInt32( threes.Groups[2].Value );
+
+                    // cell 4 has made-attempted FT
+                    Match fts = ExtractShots.Match( Cells[4] );
+                    p.FTsMade = Convert.ToInt32( fts.Groups[1].Value );
+                    p.FTAttempts = Convert.ToInt32( fts.Groups[2].Value );
+
+                    // cell 5 has off rebs
+                    p.OffensiveRebounds = Convert.ToInt32( Cells[5] );
+
+                    // cell 6 has rebs
+                    p.DefensiveRebounds = Convert.ToInt32( Cells[6] ) - p.OffensiveRebounds;
+
+                    // cell 7 has ast
+                    p.Assists = Convert.ToInt32( Cells[7] );
+
+                    // cell 8 has stl
+                    p.Steals = Convert.ToInt32( Cells[8] );
+
+                    // cell 9 has blocks
+                    p.Blocks += Convert.ToInt32( Cells[9] );
+
+                    // cell 10 has to
+                    p.Turnovers = Convert.ToInt32( Cells[10] );
+
+                    // cell 11 has pf
+                    p.Fouls = Convert.ToInt32( Cells[11] );
+
+                    perfs.Add( p );
+                }
+                catch( System.FormatException e )
+                {
+                    // yes, this is a horrible thing to do, but it works and i'm 
+                    // too lazy to switch it
+                    // this exception happens when the player gets a DNP of some
+                    // sort
+                }
+            }
+            return perfs;
+        }
+
+        public ArrayList SavePerformances( SqlDatabase db, ArrayList perfs, DateTime when )
+        {
+            ArrayList problems = new ArrayList();
+            DbConnection conn = db.CreateConnection();
+            conn.Open();
+            DbTransaction trans = conn.BeginTransaction();
+            try
+            {
+                foreach( PlayerPerformance p in perfs )
+                {
+                    DbCommand cmd = db.GetStoredProcCommand( "spAddPlayerPerformance",
+                        when, p.FirstName, p.LastName, p.TeamName, p.Minutes, p.Assists, p.Blocks,
+                        p.DefensiveRebounds, p.Fouls, p.FTAttempts, p.FTsMade, p.OffensiveRebounds,
+                        p.ShotAttempts, p.ShotsMade, p.Steals, p.ThreeAttempts,
+                        p.ThreesMade, p.Turnovers );
+                    int x = (int)db.ExecuteScalar( cmd, trans );
+                    if( x != 0 )
                     {
-                        StatGrabberException ex = new StatGrabberException(
-                            "Seems to be a problem in the statline structure in game "
-                            + GameURL
-                            + " ... maybe ESPN has changed format?" );
-                        throw ex;
+                        problems.Add( p );
                     }
+                }
+                trans.Commit();
+            }
+            catch( Exception e )
+            {
+                trans.Rollback();
+                PlayerPerformance p = new PlayerPerformance();
+                p.FirstName = "Exception thrown while saving results to db: " + e.Message;
+                problems.Add( p );
+            }
+            conn.Close();
+            return problems;
+        }
 
-					string[] Cells = SplitStatRows.Split( i.Groups[1].Value );
+        public string UpdateAveragesAndScores( SqlDatabase db, DateTime when )
+        {
+            string result = "Successly updated scores and averages";
+            DbConnection conn = db.CreateConnection();
+            conn.Open();
+            DbTransaction trans = conn.BeginTransaction();
+            try
+            {
+                db.ExecuteNonQuery( "spSetCurrentScore", when );
+                db.ExecuteNonQuery( "spRecalcPlayerAverages" );
+                trans.Commit();
+            }
+            catch( Exception e )
+            {
+                result = "Failed to update scores and averages: " + e.Message;
+                trans.Rollback();
+            }
+            conn.Close();
+            return result;
+        }
 
-					PlayerPerformance p = new PlayerPerformance();
-					MatchCollection PlayerName = ExtractPlayerName.Matches( Cells[0] );
-					if( PlayerName.Count < 1 )
-					{
-						// the nene exception
-						MatchCollection Nene = NeneException.Matches( Cells[0] );
-						if( Nene.Count > 0 )
-						{
-							// yup, it's him
-							p.FirstName = "Nene";
-							p.LastName = "Hilario";
-						}
-						else
-						{
-                            StatGrabberException ex = new StatGrabberException(
-                                "Player's name doesn't match the pattern: " + Cells[0] );
-                            throw ex; 
-						}
-					}
-					else
-					{
-						p.FirstName = PlayerName[0].Groups[1].Value;
-						p.LastName = PlayerName[0].Groups[2].Value;
-					}
+        public string DateToString( DateTime x )
+        {
+            return x.Year.ToString() + x.Month.ToString( "0#" ) + x.Day.ToString( "0#" );
+        }
 
-					if( i.Index >= HomeAfterThis )
-					{
-						p.TeamName = TeamMatches[1].Groups[1].Value;
-					}
-					else
-					{
-						p.TeamName = TeamMatches[0].Groups[1].Value;
-					}
-					try
-					{
-						// cell 1 has minutes
-						p.Minutes = Convert.ToInt32( Cells[1] );
-
-						// cell 3 has made-missed on 3 pointers
-						Match threes = ExtractThrees.Match( Cells[3] );
-						p.Offense += Convert.ToInt32( threes.Groups[1].Value );
-
-						// cell 5 has off rebs
-						p.Offense += 2 * Convert.ToInt32( Cells[5] );
-
-						// cell 6 has def rebs
-						p.Defense += Convert.ToInt32( Cells[6] );
-
-						// cell 8 has ast
-						p.Offense += Convert.ToInt32( Cells[8] );
-
-						// cell 9 has stl
-						p.Defense += 2 * Convert.ToInt32( Cells[9] );
-
-						// cell 10 has blocks
-						p.Defense += 2 * Convert.ToInt32( Cells[10] );
-
-						// cell 11 has to
-						p.Defense -= Convert.ToInt32( Cells[11] );
-
-						// cell 12 has pf
-						p.Offense -= Convert.ToInt32( Cells[12] );
-
-                        // cell 13 has +/-
-
-                        // cell 14 has points
-                        p.Offense += Convert.ToInt32( Cells[ 14 ] );
-
-                        perfs.Add( p );
-					}
-					catch( System.FormatException e )
-					{
-                        // yes, this is a horrible thing to do, but it works and i'm 
-                        // too lazy to switch it
-                        // this exception happens when the player gets a DNP of some
-                        // sort
-                    }
-				}
-
-			}
-			return perfs;
-		}
-
-		public ArrayList SavePerformances( SqlConnection con, ArrayList performances, DateTime when )
-		{
-
-			ArrayList problems = new ArrayList();
-
-			foreach( PlayerPerformance p in performances )
-			{
-				int x = (int)SqlHelper.ExecuteScalar( con, "spAddPlayerPerformance",
-						when, p.FirstName, p.LastName, p.TeamName, p.Minutes, p.Offense, p.Defense );
-				if( x != 0 )
-				{
-					problems.Add( p );
-				}
-			}
-
-			SqlHelper.ExecuteNonQuery( con, "spSetCurrentScore", when );
-			SqlHelper.ExecuteNonQuery( con, "spRecalcPlayerAverages" );
-
-			return problems;
-		}
-
-        //public void ReportMissingPlayers( ArrayList missing, string SmtpServer, string recipient, DateTime gamedate )
-        //{
-        //    SmtpMail.SmtpServer = SmtpServer;
-        //    MailMessage m = new MailMessage();
-        //    m.To = recipient;
-        //    m.From = "ohri@sep.com";
-        //    m.Subject = "Missing player report for game date " + gamedate.ToString();
-        //    foreach( PlayerPerformance p in missing )
-        //    {
-        //        m.Body += p.FirstName + " " + p.LastName + " " + p.TeamName + "\n";
-        //    }
-        //    SmtpMail.Send( m );
-        //}
-
-		public string DateToString( DateTime x )
-		{
-			return x.Year.ToString() + x.Month.ToString( "0#" ) + x.Day.ToString( "0#" );
-		}
-
-		public string WebPageToString( string url )
-		{
-			WebRequest wreq = HttpWebRequest.Create( url );
-			WebResponse wres = wreq.GetResponse();
-			StreamReader sr = new StreamReader( wres.GetResponseStream() );
-			string page = sr.ReadToEnd();
-			sr.Close();
-			return page;
-		}
-	}
+        public string WebPageToString( string url )
+        {
+            WebRequest wreq = HttpWebRequest.Create( url );
+            WebResponse wres = wreq.GetResponse();
+            StreamReader sr = new StreamReader( wres.GetResponseStream() );
+            string page = sr.ReadToEnd();
+            sr.Close();
+            return page;
+        }
+    }
 }

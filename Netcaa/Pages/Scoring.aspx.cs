@@ -12,6 +12,7 @@ using Microsoft.ApplicationBlocks.Data;
 using System.Data.SqlClient;
 using Logger;
 using StatGrabber;
+using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 
 namespace netcaa.Pages
 {
@@ -38,7 +39,7 @@ namespace netcaa.Pages
 				ddlWeeks.DataValueField = "WeekId";
 				ddlWeeks.DataBind();
 
-				calStatDate.SelectedDate = DateTime.Now.AddDays( -1 );
+				calStatDate.SelectedDate = DateTime.Today.AddDays( -1 );
 			}
 		}
 
@@ -71,59 +72,53 @@ namespace netcaa.Pages
 
 		protected void ButtonProcessDaily_Click(object sender, System.EventArgs e)
 		{
-			tbScrapeResults.Text += "\r\n" + calStatDate.SelectedDate.ToString() + "\r\n";
+            tbOutput.Text += "\r\n" + calStatDate.SelectedDate.ToString() + "\r\n";
 
             StatGrabber.StatGrabber sg = new StatGrabber.StatGrabber();
-			ArrayList urls = sg.GetGames( calStatDate.SelectedDate );
 
-			tbScrapeResults.Text += "Ran GetGames, got back " + urls.Count + " games\r\n";
+            ArrayList urls = sg.GetGames( this.calStatDate.SelectedDate );
 
-            ArrayList problems = null;
-            ArrayList performances = null;
+            tbOutput.Text += "Ran GetGames, got back " + urls.Count + " games\r\n";
 
-            if( urls.Count > 0 )
+            SqlDatabase db = new SqlDatabase( @"data source=localhost\sqlexpress;initial catalog=netba;user id=netba_web;password=go_muddogs07!;Persist Security Info=true" );
+            ArrayList problems = new ArrayList();
+            foreach( string url in urls )
             {
                 try
                 {
-                    performances = sg.GetPerformances( urls );
-                    tbScrapeResults.Text += "Ran GetPerformances, got back " + performances.Count + " perfs\r\n";
-
-                    if( performances.Count > 0 )
-                    {
-                        SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.AppSettings["ConnectionString"]);
-                        problems = sg.SavePerformances( con, performances, calStatDate.SelectedDate );
-
-                        tbScrapeResults.Text += "Ran SavePerformances, got back " + problems.Count + " problems\r\n";
-                        foreach( PlayerPerformance p in problems )
-                        {
-                            tbScrapeResults.Text += p.FirstName + " " + p.LastName + " " + p.TeamName + "\r\n";
-                        }
-                    }
+                    ArrayList perfs = sg.GetGamePerformances( url );
+                    tbOutput.Text += "Got " + perfs.Count + " perfs from " + url + "\r\n";
+                    problems.AddRange( sg.SavePerformances( db, perfs, calStatDate.SelectedDate ) );
                 }
-                catch( StatGrabberException ex )
+                catch( StatGrabber.StatGrabberException ex )
                 {
-                    tbScrapeResults.Text += "StatGrabber threw: "
-                        + ex.Message;
+                    tbOutput.Text += ex.Message;
                 }
             }
 
-			Log.AddLogEntry( 
-				LogEntryTypes.StatsProcessed, 
-				Page.User.Identity.Name, 
-				"Processed stats for " 
-					+ calStatDate.SelectedDate.ToString() 
-					+ ", found "  
-					+ urls.Count
-					+ " games, "
-					+ ( performances == null ? -1 : performances.Count )
-					+ " perfs, "
-					+ ( problems == null ? -1 : problems.Count )
-					+ " problems" );
-		}
+            if( problems.Count > 0 )
+            {
+                foreach( StatGrabber.PlayerPerformance p in problems )
+                {
+                    tbOutput.Text += p.FirstName + " " + p.LastName + " " + p.TeamName + "\r\n";
+                }
+            }
+            else
+            {
+                tbOutput.Text += "No problems identifying players\r\n";
+            }
+
+            tbOutput.Text += sg.UpdateAveragesAndScores( db, calStatDate.SelectedDate );
+
+            Log.AddLogEntry(
+                LogEntryTypes.StatsProcessed,
+                Page.User.Identity.Name,
+                tbOutput.Text );
+        }
         protected void btnAutosub_Click( object sender, EventArgs e )
         {
             string result = AutoSub.ProcessAutosubs( ddlWeeks.SelectedValue );
-            tbScrapeResults.Text += result;
+            tbOutput.Text += result;
         }
     }
 }
