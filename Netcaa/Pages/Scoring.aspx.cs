@@ -80,7 +80,7 @@ namespace netcaa.Pages
 
             tbOutput.Text += "Ran GetGames, got back " + urls.Count + " games\r\n";
 
-            SqlDatabase db = new SqlDatabase( @"data source=localhost\sqlexpress;initial catalog=netba;user id=netba_web;password=go_muddogs07!;Persist Security Info=true" );
+            SqlDatabase db = new SqlDatabase( System.Configuration.ConfigurationManager.AppSettings["ConnectionString"] );
             ArrayList problems = new ArrayList();
             foreach( string url in urls )
             {
