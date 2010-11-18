@@ -81,6 +81,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\netcaa.gif" />
     <Content Include="Pages\admin.aspx" />
     <Content Include="Controls\Alerts.ascx" />
     <Content Include="Controls\Footer.ascx" />
@@ -98,7 +99,6 @@
     <Content Include="Images\arr.up.gif" />
     <Content Include="Images\completed_trades.png" />
     <Content Include="Images\ir.gif" />
-    <Content Include="Images\NetBA4.jpg" />
     <Content Include="Pages\Lineups.aspx" />
     <Content Include="Pages\login.aspx" />
     <Content Include="Controls\NavBar.ascx" />

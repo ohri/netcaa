@@ -38,7 +38,7 @@ a:hover
 .grid
 {
 	border: solid 1px;
-	border-color: Red;
+	border-color: Navy;
 	color: Black;
 }
 
@@ -46,7 +46,7 @@ a:hover
 {
     border: 1px;
     border-style: solid;
-    border-color: Red;
+    border-color: Navy;
     margin: 3px 3px 3px 3px;
     padding: 5px 5px 5px 5px;
 	vertical-align:top;
@@ -110,23 +110,23 @@ a:hover
 navbar
 {
 	FONT-WEIGHT: bold; 
-	COLOR: white; 
-	BACKGROUND-COLOR: red;
+	COLOR: Navy; 
+/*	BACKGROUND-COLOR: Navy;*/
 }
 
 
 navtext
 {
-	color: White;
-	background-color: Red;
+	color: Navy;
+/*	background-color: Navy;*/
 	font-size: 12px;
 }
 
 a.navtext, a.navtext:visited, a.navtext:link, a.navtext:active, a.navtext:hover
 {	
 	font-weight: bold;
-	color: White;
-	background-color: Red;
+	color: Navy;
+/*	background-color: Navy;*/
 	font-size: 12px;
 }
 

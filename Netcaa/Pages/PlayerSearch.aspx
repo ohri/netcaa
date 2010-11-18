@@ -37,7 +37,7 @@
                                 <ItemStyle HorizontalAlign="Center"></ItemStyle>
                             </asp:BoundColumn>
                             <asp:HyperLinkColumn DataNavigateUrlField="RealTeamId" DataNavigateUrlFormatString="RealTeamView.aspx?RealTeamId={0}"
-                                DataTextField="RealTeam" HeaderText="NBA Team">
+                                DataTextField="RealTeam" HeaderText="NCAA Team">
                                 <ItemStyle HorizontalAlign="Center"></ItemStyle>
                             </asp:HyperLinkColumn>
                             <asp:HyperLinkColumn DataNavigateUrlField="TeamId" DataNavigateUrlFormatString="TeamPage.aspx?TeamId={0}"

@@ -2,10 +2,12 @@
 <table cellpadding="0" border="0" cellspacing="0">
     <tr valign="bottom" width="160px">
         <td valign="bottom">
-            <a href="/Pages/home.aspx"><img width="160px" alt="home" border="0" src="/Images/netcaa.jpg" /></a>
+            <center>
+            <a href="/Pages/home.aspx"><img width="120px" alt="home" border="0" src="/Images/netcaa.gif" /></a>
+            </center>
         </td>
     </tr>
-    <tr valign="top" bgcolor="red">
+    <tr valign="top">
         <td>
             <br />
             <table border="0" cellpadding="15" cellspacing="0">

@@ -18,7 +18,8 @@ namespace StatGrabber
         {
             // temporary limiting to confid 7 (big ten)
             // this will need to loop over the appropriate conferences
-            string page = WebPageToString( "http://scores.espn.go.com/ncb/scoreboard?confId=7&date=" + DateToString( DateToGet ) );
+//            string page = WebPageToString( "http://scores.espn.go.com/ncb/scoreboard?confId=7&date=" + DateToString( DateToGet ) );
+            string page = WebPageToString( "http://scores.espn.go.com/ncb/scoreboard?date=" + DateToString( DateToGet ) );
 
             ArrayList retval = new ArrayList();
 
