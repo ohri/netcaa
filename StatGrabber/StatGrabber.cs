@@ -5,6 +5,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 using System.Data.Common;
+using System.Data;
 
 namespace StatGrabber
 {
@@ -14,42 +15,43 @@ namespace StatGrabber
         {
         }
 
-        public ArrayList GetGames( DateTime DateToGet )
+        public ArrayList GetGames( DateTime DateToGet, SqlDatabase db )
         {
-            // temporary limiting to confid 7 (big ten)
-            // this will need to loop over the appropriate conferences
-//            string page = WebPageToString( "http://scores.espn.go.com/ncb/scoreboard?confId=7&date=" + DateToString( DateToGet ) );
-            string page = WebPageToString( "http://scores.espn.go.com/ncb/scoreboard?date=" + DateToString( DateToGet ) );
-
-            ArrayList retval = new ArrayList();
-
             Regex boxstart = new Regex( @"/ncb/boxscore\?gameId=" );
-            //Extract the address
-            Match m = boxstart.Match( page );
-            while( m.Success )
+            Regex topPerformers = new Regex( @"<h4>TOP PERFORMERS<span>" );
+            ArrayList retval = new ArrayList();
+            DataSet conferences = db.ExecuteDataSet( "spFetchRealConferences" );
+            foreach( DataRow r in conferences.Tables[0].Rows )
             {
-                int sPos = m.Index;
-                int ePos = 0;
-                if( sPos > 0 )
+                if( (bool)r["IsAvailableForUse"] )
                 {
-                    Regex end = new Regex( "\"" );
-                    Match me = end.Match( page, sPos );
-                    ePos = me.Index;
-                    if( ePos > -1 )
+                    string page = WebPageToString( "http://scores.espn.go.com/ncb/scoreboard?confId=" + r["ESPNId"] + "&date=" + DateToString( DateToGet ) );
+
+                    //Extract the address
+                    Match m = boxstart.Match( page );
+                    Match stopHere = topPerformers.Match( page );
+                    while( m.Success )
                     {
-                        string url = "http://espn.go.com" + page.Substring( sPos, ePos - sPos );
-                        if( !retval.Contains( url ) )
+                        int sPos = m.Index;
+                        int ePos = 0;
+                        if( sPos > 0 && sPos < stopHere.Index )
                         {
-                            retval.Add( url );
+                            Regex end = new Regex( "\"" );
+                            Match me = end.Match( page, sPos );
+                            ePos = me.Index;
+                            if( ePos > -1 )
+                            {
+                                string url = "http://espn.go.com" + page.Substring( sPos, ePos - sPos );
+                                if( !retval.Contains( url ) )
+                                {
+                                    retval.Add( url );
+                                }
+                            }
                         }
+                        m = m.NextMatch();
                     }
                 }
-                m = m.NextMatch();
             }
-
-            // remove the last three ... they are 'leader' boxes, not this conference
-            retval.RemoveRange( retval.Count - 3, 3 );
-
             return retval;
         }
 

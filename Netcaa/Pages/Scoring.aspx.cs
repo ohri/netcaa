@@ -75,12 +75,12 @@ namespace netcaa.Pages
             tbOutput.Text += "\r\n" + calStatDate.SelectedDate.ToString() + "\r\n";
 
             StatGrabber.StatGrabber sg = new StatGrabber.StatGrabber();
+            SqlDatabase db = new SqlDatabase( System.Configuration.ConfigurationManager.AppSettings["ConnectionString"] );
 
-            ArrayList urls = sg.GetGames( this.calStatDate.SelectedDate );
+            ArrayList urls = sg.GetGames( this.calStatDate.SelectedDate, db );
 
             tbOutput.Text += "Ran GetGames, got back " + urls.Count + " games\r\n";
 
-            SqlDatabase db = new SqlDatabase( System.Configuration.ConfigurationManager.AppSettings["ConnectionString"] );
             ArrayList problems = new ArrayList();
             foreach( string url in urls )
             {

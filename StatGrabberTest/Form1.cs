@@ -130,12 +130,12 @@ namespace StatGrabberTest
             tbOutput.Text += "\r\n" + calStatDate.SelectionStart.ToString() + "\r\n";
 
             StatGrabber.StatGrabber sg = new StatGrabber.StatGrabber();
+            SqlDatabase db = new SqlDatabase( @"data source=localhost\sqlexpress;initial catalog=netcaa;user id=netcaa_web;password=go_muddogs07!;Persist Security Info=true" );
 
-            ArrayList urls = sg.GetGames( calStatDate.SelectionStart );
+            ArrayList urls = sg.GetGames( calStatDate.SelectionStart, db );
 
             tbOutput.Text += "Ran GetGames, got back " + urls.Count + " games\r\n";
 
-            SqlDatabase db = new SqlDatabase( @"data source=localhost\sqlexpress;initial catalog=netcaa;user id=netcaa_web;password=go_muddogs07!;Persist Security Info=true" );
             ArrayList problems = new ArrayList();
             foreach( string url in urls )
             {

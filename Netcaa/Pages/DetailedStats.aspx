@@ -57,10 +57,10 @@
                         <asp:BoundColumn DataField="GameMinutes" HeaderText="Min">
                             <ItemStyle HorizontalAlign="Right"></ItemStyle>
                         </asp:BoundColumn>
-                        <asp:BoundColumn DataField="netcaaoffense" HeaderText="Off">
+                        <asp:BoundColumn DataField="offense" HeaderText="Off">
                             <ItemStyle HorizontalAlign="Right"></ItemStyle>
                         </asp:BoundColumn>
-                        <asp:BoundColumn DataField="netcaadefense" HeaderText="Def">
+                        <asp:BoundColumn DataField="defense" HeaderText="Def">
                             <ItemStyle HorizontalAlign="Right"></ItemStyle>
                         </asp:BoundColumn>
                         <asp:BoundColumn DataField="total" HeaderText="Total">
@@ -102,10 +102,10 @@
                         <asp:BoundColumn DataField="GameMinutes" HeaderText="Min">
                             <ItemStyle HorizontalAlign="Right"></ItemStyle>
                         </asp:BoundColumn>
-                        <asp:BoundColumn DataField="netcaaoffense" HeaderText="Off">
+                        <asp:BoundColumn DataField="offense" HeaderText="Off">
                             <ItemStyle HorizontalAlign="Right"></ItemStyle>
                         </asp:BoundColumn>
-                        <asp:BoundColumn DataField="netcaadefense" HeaderText="Def">
+                        <asp:BoundColumn DataField="defense" HeaderText="Def">
                             <ItemStyle HorizontalAlign="Right"></ItemStyle>
                         </asp:BoundColumn>
                         <asp:BoundColumn DataField="total" HeaderText="Total">
