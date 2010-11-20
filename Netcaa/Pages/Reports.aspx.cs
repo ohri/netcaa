@@ -45,11 +45,6 @@ namespace netcaa.Pages
                 row["ReportFunction"] = "spGetBestFreeAgentsLately";
                 reports.Rows.Add(row);
 
-                row = reports.NewRow();
-                row["ReportName"] = "Top Rookies";
-                row["ReportFunction"] = "spGetBestRookies";
-                reports.Rows.Add(row);
-
                 ddlReports.DataSource = reports;
                 ddlReports.DataTextField = "ReportName";
                 ddlReports.DataValueField = "ReportFunction";
@@ -89,7 +84,7 @@ namespace netcaa.Pages
         private void BindGrid()
         {
             DataSet players = SqlHelper.ExecuteDataset(System.Configuration.ConfigurationManager.AppSettings["ConnectionString"],
-                ddlReports.SelectedValue, ddlSeasons.SelectedValue);
+                ddlReports.SelectedValue, ddlSeasons.SelectedValue, 0 );
             dgReportOutput.DataSource = players.Tables[0];
             if (ddlReports.SelectedItem.Text == "Top Free Agents" || ddlReports.SelectedItem.Text == "Top Free Agents - Lately")
             {

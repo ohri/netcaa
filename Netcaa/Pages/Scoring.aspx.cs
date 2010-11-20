@@ -72,14 +72,14 @@ namespace netcaa.Pages
 
 		protected void ButtonProcessDaily_Click(object sender, System.EventArgs e)
 		{
-            tbOutput.Text += "\r\n" + calStatDate.SelectedDate.ToString() + "\r\n";
+            tbOutput.Text += "\r\nRunning stats for " + calStatDate.SelectedDate.ToString() + "\r\n";
 
             StatGrabber.StatGrabber sg = new StatGrabber.StatGrabber();
             SqlDatabase db = new SqlDatabase( System.Configuration.ConfigurationManager.AppSettings["ConnectionString"] );
 
             ArrayList urls = sg.GetGames( this.calStatDate.SelectedDate, db );
 
-            tbOutput.Text += "Ran GetGames, got back " + urls.Count + " games\r\n";
+            tbOutput.Text += "Found " + urls.Count + " games\r\n";
 
             ArrayList problems = new ArrayList();
             foreach( string url in urls )
@@ -98,6 +98,7 @@ namespace netcaa.Pages
 
             if( problems.Count > 0 )
             {
+                tbOutput.Text += "Problems:\r\n";
                 foreach( StatGrabber.PlayerPerformance p in problems )
                 {
                     tbOutput.Text += p.FirstName + " " + p.LastName + " " + p.TeamName + "\r\n";
@@ -119,6 +120,11 @@ namespace netcaa.Pages
         {
             string result = AutoSub.ProcessAutosubs( ddlWeeks.SelectedValue );
             tbOutput.Text += result;
+        }
+
+        protected void ButtonClear_Click( object sender, EventArgs e )
+        {
+            tbOutput.Text = "";
         }
     }
 }

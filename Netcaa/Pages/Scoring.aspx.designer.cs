@@ -85,6 +85,15 @@ namespace netcaa.Pages {
         protected global::System.Web.UI.WebControls.Button ButtonProcessDaily;
         
         /// <summary>
+        /// ButtonClear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonClear;
+        
+        /// <summary>
         /// tbOutput control.
         /// </summary>
         /// <remarks>

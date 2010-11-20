@@ -46,8 +46,8 @@
                             </asp:Panel>
                         </td>
                         <td>
-                            <asp:Panel ID="pnlPlayerFields" runat="server" Height="250px" BorderStyle="Inset">
-                                <table cellspacing="5" cellpadding="5" border="0">
+                            <asp:Panel ID="pnlPlayerFields" runat="server" Height="300px" BorderStyle="Inset">
+                                <table cellspacing="5" cellpadding="5" border="0" style="height: 300px">
                                     <tbody>
                                         <tr>
                                             <td>
