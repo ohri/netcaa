@@ -170,9 +170,6 @@ namespace StatGrabber
         public ArrayList SavePerformances( SqlDatabase db, ArrayList perfs, DateTime when )
         {
             ArrayList problems = new ArrayList();
-            DbConnection conn = db.CreateConnection();
-            conn.Open();
-            DbTransaction trans = conn.BeginTransaction();
             try
             {
                 foreach( PlayerPerformance p in perfs )
@@ -182,22 +179,19 @@ namespace StatGrabber
                         p.DefensiveRebounds, p.Fouls, p.FTAttempts, p.FTsMade, p.OffensiveRebounds,
                         p.ShotAttempts, p.ShotsMade, p.Steals, p.ThreeAttempts,
                         p.ThreesMade, p.Turnovers );
-                    int x = (int)db.ExecuteScalar( cmd, trans );
+                    int x = (int)db.ExecuteScalar( cmd );
                     if( x != 0 )
                     {
                         problems.Add( p );
                     }
                 }
-                trans.Commit();
             }
             catch( Exception e )
             {
-                trans.Rollback();
                 PlayerPerformance p = new PlayerPerformance();
                 p.FirstName = "Exception thrown while saving results to db: " + e.Message;
                 problems.Add( p );
             }
-            conn.Close();
             return problems;
         }
 
