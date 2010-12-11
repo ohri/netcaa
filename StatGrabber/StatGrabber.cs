@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 using System.Data.Common;
 using System.Data;
+using System.Linq;
 
 namespace StatGrabber
 {
@@ -108,10 +109,12 @@ namespace StatGrabber
                 if( i.Index >= HomeAfterThis )
                 {
                     p.TeamName = TeamMatches[1].Groups[1].Value;
+                    p.Opponent = TeamMatches[0].Groups[1].Value;
                 }
                 else
                 {
                     p.TeamName = TeamMatches[0].Groups[1].Value;
+                    p.Opponent = TeamMatches[1].Groups[1].Value;
                 }
                 try
                 {
@@ -178,13 +181,19 @@ namespace StatGrabber
                         when, p.FirstName, p.LastName, p.TeamName, p.Minutes, p.Assists, p.Blocks,
                         p.DefensiveRebounds, p.Fouls, p.FTAttempts, p.FTsMade, p.OffensiveRebounds,
                         p.ShotAttempts, p.ShotsMade, p.Steals, p.ThreeAttempts,
-                        p.ThreesMade, p.Turnovers );
+                        p.ThreesMade, p.Turnovers, p.Opponent );
                     int x = (int)db.ExecuteScalar( cmd );
                     if( x != 0 )
                     {
                         problems.Add( p );
                     }
                 }
+
+                string[] q = ( ( from PlayerPerformance perf in perfs
+                        select perf.TeamName ).Distinct() ).ToArray();
+
+                db.ExecuteNonQuery( "spAddDefensiveBonuses", q[0], q[1], when );
+                db.ExecuteNonQuery( "spAddDefensiveBonuses", q[1], q[0], when );
             }
             catch( Exception e )
             {

@@ -24,6 +24,7 @@ namespace StatGrabber
         public int Blocks = 0;
         public int Fouls = 0;
         public int Turnovers = 0;
+        public string Opponent = "";
 
         public int Offense
         {

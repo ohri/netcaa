@@ -63,7 +63,7 @@ namespace netcaa.Pages
                 return;
             }
 
-            if (round < 1 || round > 7 || pick < 1 || pick > 16)
+            if (round < 1 || round > 12 || pick < 1 || pick > 16)
             {
                 lblPickMessage.Text = "Invalid pick information.";
                 return;

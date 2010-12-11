@@ -121,9 +121,6 @@ namespace netcaa.Pages
 				e.Item.Cells[0].Text = "Sub-Total";
 				e.Item.Cells[0].ColumnSpan = 2;
 				e.Item.Cells.RemoveAt( 1 );
-//				e.Item.Cells[0].CssClass = "bolditem";
-//				e.Item.Cells[1].CssClass = "bolditem";
-//				e.Item.Cells[2].CssClass = "bolditem";
 			}
 			else if( e.Item.Cells[0].Text == "T" )
 			{

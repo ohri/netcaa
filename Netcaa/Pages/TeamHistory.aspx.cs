@@ -21,7 +21,10 @@ namespace netcaa.Pages
             dgFranchiseRecord.DataSource = record;
             dgFranchiseRecord.DataBind();
 
-            lblPageTitle.Text = record.Tables[0].Rows[0]["Team"] + " Team History";
+            if( record.Tables.Count > 0 && record.Tables[0].Rows.Count > 0 )
+            {
+                lblPageTitle.Text = record.Tables[0].Rows[0]["Team"] + " Team History";
+            }
         }
     }
 }
