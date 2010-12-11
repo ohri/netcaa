@@ -15,6 +15,7 @@
                         <asp:Literal ID="litEditLink" runat="server"></asp:Literal>
                     </font>
                 </p>
+                </td><td>
                 <p>
                     <font size="3">Record:
                         <asp:Label ID="lblRecord" runat="server"></asp:Label>
@@ -29,8 +30,8 @@
                         <asp:Label ID="lblLastLogin" runat="server"></asp:Label>
                     </font>
                 </p>
-            </td>
-            <td width="450">
+            </td></tr><tr>
+            <td colspan="2" width="600">
                 <asp:DataGrid ID="dgRoster" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                     CssClass="grid">
                     <HeaderStyle CssClass="gridheader"></HeaderStyle>
@@ -50,6 +51,9 @@
                                 Font-Underline="False" HorizontalAlign="Center" />
                         </asp:BoundColumn>
                         <asp:BoundColumn DataField="NetPPM" HeaderText="NetPPM" DataFormatString="{0:0.00}">
+                            <ItemStyle HorizontalAlign="Center"></ItemStyle>
+                        </asp:BoundColumn>
+                        <asp:BoundColumn DataField="LastGame" HeaderText="Last Game">
                             <ItemStyle HorizontalAlign="Center"></ItemStyle>
                         </asp:BoundColumn>
                         <asp:TemplateColumn HeaderText="Status">

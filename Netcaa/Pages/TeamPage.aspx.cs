@@ -73,7 +73,7 @@ namespace netcaa.Pages
             DataRowView rowview = (DataRowView)e.Item.DataItem;
             if ((bool)rowview.Row["IsOnInjuredReserve"] == true)
             {
-                lit.Text = @"<img src=\images\ir.gif>";
+                lit.Text = @"<img src=/Images/ir.gif alt='IR' \>";
             }
         }
     }
