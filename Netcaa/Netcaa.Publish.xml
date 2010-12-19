@@ -4,7 +4,7 @@
     <file relUrl="Scripts/MoveItem.js" publishTime="01/03/2009 16:50:14" />
     <file relUrl="Images/arr.up.gif" publishTime="11/02/2010 18:52:17" />
     <file relUrl="Pages/TradePropose.aspx" publishTime="11/09/2010 20:30:53" />
-    <file relUrl="Pages/Schedule.aspx" publishTime="11/09/2010 20:30:54" />
+    <file relUrl="Pages/Schedule.aspx" publishTime="12/19/2010 12:15:59" />
     <file relUrl="Pages/SelectPlayer.aspx" publishTime="11/09/2010 20:30:53" />
     <file relUrl="Scripts/StashItems.js" publishTime="01/04/2009 22:04:42" />
     <file relUrl="Pages/Draft.aspx" publishTime="11/09/2010 20:30:54" />
@@ -20,7 +20,7 @@
     <file relUrl="Pages/SelectPlayers.aspx" publishTime="11/09/2010 20:30:53" />
     <file relUrl="Pages/admin.aspx" publishTime="11/09/2010 20:30:55" />
     <file relUrl="bin/Logger.pdb" publishTime="12/04/2010 10:48:51" />
-    <file relUrl="bin/Netcaa.pdb" publishTime="12/19/2010 11:36:46" />
+    <file relUrl="bin/Netcaa.pdb" publishTime="12/19/2010 12:43:49" />
     <file relUrl="Pages/Lineups.aspx" publishTime="11/09/2010 20:30:54" />
     <file relUrl="bin/Logger.dll" publishTime="12/04/2010 10:48:52" />
     <file relUrl="Static/notauthorized.html" publishTime="11/04/2010 20:16:13" />
@@ -53,7 +53,7 @@
     <file relUrl="Controls/scoreboard.ascx" publishTime="11/09/2010 20:34:00" />
     <file relUrl="Pages/TeamPage.aspx" publishTime="12/11/2010 15:21:24" />
     <file relUrl="Site.Master" publishTime="11/17/2010 06:49:52" />
-    <file relUrl="bin/Netcaa.dll" publishTime="12/19/2010 11:36:46" />
+    <file relUrl="bin/Netcaa.dll" publishTime="12/19/2010 12:43:49" />
     <file relUrl="Scripts/SelectSwapMove.js" publishTime="11/01/2004 20:04:08" />
     <file relUrl="Pages/Transactions.aspx" publishTime="11/09/2010 20:30:53" />
     <file relUrl="bin/Microsoft.Practices.EnterpriseLibrary.Common.xml" publishTime="11/13/2010 09:53:59" />
@@ -61,7 +61,7 @@
     <file relUrl="Pages/PlayerSearch.aspx" publishTime="11/16/2010 22:42:15" />
     <file relUrl="Pages/Scoring.aspx" publishTime="11/20/2010 10:05:42" />
     <file relUrl="Pages/EditInfo.aspx" publishTime="11/09/2010 20:30:54" />
-    <file relUrl="Pages/BoxScore.aspx" publishTime="12/11/2010 16:48:20" />
+    <file relUrl="Pages/BoxScore.aspx" publishTime="12/19/2010 12:42:14" />
     <file relUrl="Pages/RealTeamView.aspx" publishTime="11/09/2010 20:30:54" />
     <file relUrl="Scripts/mySubmit.js" publishTime="10/28/2004 23:46:36" />
     <file relUrl="Pages/Rules.aspx" publishTime="11/09/2010 20:30:54" />
@@ -80,7 +80,7 @@
     <file relUrl="Pages/DetailedStats.aspx" publishTime="11/18/2010 23:48:25" />
     <file relUrl="Static/trade_already_completedorrejected.html" publishTime="11/09/2010 19:25:32" />
     <file relUrl="Static/no_trading_allowed.html" publishTime="11/09/2010 19:25:32" />
-    <file relUrl="Pages/TransactionEditor.aspx" publishTime="11/09/2010 20:30:53" />
+    <file relUrl="Pages/TransactionEditor.aspx" publishTime="12/19/2010 12:09:56" />
     <file relUrl="Images/netcaa.gif" publishTime="11/17/2010 06:40:07" />
     <file relUrl="Pages/login.aspx" publishTime="11/09/2010 20:30:54" />
     <file relUrl="Pages/TradeList.aspx" publishTime="11/09/2010 20:30:53" />

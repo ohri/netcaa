@@ -6,7 +6,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Main" runat="Server">
     <script language="javascript" type="text/javascript" src="/Scripts/SelectSwapMove.js"></script>
-    <table bordercolor="red" cellspacing="0" cellpadding="20" border="1">
+    <table bordercolor="navy" cellspacing="0" cellpadding="20" border="1">
         <tr>
             <td style="height: 34px">
                 <p>

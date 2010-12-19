@@ -13,6 +13,8 @@
         <HeaderStyle CssClass="gridheader"></HeaderStyle>
         <Columns>
             <asp:BoundColumn DataField="Week" HeaderText="Week"></asp:BoundColumn>
+            <asp:BoundColumn DataField="StartDate" HeaderText="Start" 
+                DataFormatString="{0:d}"></asp:BoundColumn>
             <asp:BoundColumn DataField="HomeTeam" HeaderText="Home"></asp:BoundColumn>
             <asp:BoundColumn DataField="VisitingTeam" HeaderText="Away"></asp:BoundColumn>
             <asp:BoundColumn DataField="NumGames" HeaderText="Games"></asp:BoundColumn>
