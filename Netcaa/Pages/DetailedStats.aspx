@@ -66,6 +66,15 @@
                         <asp:BoundColumn DataField="total" HeaderText="Total">
                             <ItemStyle HorizontalAlign="Right"></ItemStyle>
                         </asp:BoundColumn>
+                        <asp:BoundColumn DataField="OffBonus" HeaderText="O Bonus">
+                            <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                        </asp:BoundColumn>
+                        <asp:BoundColumn DataField="DefBonus" HeaderText="D Bonus">
+                            <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                        </asp:BoundColumn>
+                        <asp:BoundColumn DataField="Opponent" HeaderText="Opponent">
+                            <ItemStyle HorizontalAlign="Left"></ItemStyle>
+                        </asp:BoundColumn>
                     </Columns>
                 </asp:DataGrid>
             </td>

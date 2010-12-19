@@ -20,7 +20,7 @@
     <file relUrl="Pages/SelectPlayers.aspx" publishTime="11/09/2010 20:30:53" />
     <file relUrl="Pages/admin.aspx" publishTime="11/09/2010 20:30:55" />
     <file relUrl="bin/Logger.pdb" publishTime="12/04/2010 10:48:51" />
-    <file relUrl="bin/Netcaa.pdb" publishTime="12/19/2010 12:43:49" />
+    <file relUrl="bin/Netcaa.pdb" publishTime="12/19/2010 13:36:03" />
     <file relUrl="Pages/Lineups.aspx" publishTime="11/09/2010 20:30:54" />
     <file relUrl="bin/Logger.dll" publishTime="12/04/2010 10:48:52" />
     <file relUrl="Static/notauthorized.html" publishTime="11/04/2010 20:16:13" />
@@ -53,7 +53,7 @@
     <file relUrl="Controls/scoreboard.ascx" publishTime="11/09/2010 20:34:00" />
     <file relUrl="Pages/TeamPage.aspx" publishTime="12/11/2010 15:21:24" />
     <file relUrl="Site.Master" publishTime="11/17/2010 06:49:52" />
-    <file relUrl="bin/Netcaa.dll" publishTime="12/19/2010 12:43:49" />
+    <file relUrl="bin/Netcaa.dll" publishTime="12/19/2010 13:36:03" />
     <file relUrl="Scripts/SelectSwapMove.js" publishTime="11/01/2004 20:04:08" />
     <file relUrl="Pages/Transactions.aspx" publishTime="11/09/2010 20:30:53" />
     <file relUrl="bin/Microsoft.Practices.EnterpriseLibrary.Common.xml" publishTime="11/13/2010 09:53:59" />
@@ -77,7 +77,7 @@
     <file relUrl="bin/Microsoft.Practices.Unity.Interception.dll" publishTime="04/16/2010 14:42:32" />
     <file relUrl="Styles/netcaa.css" publishTime="11/17/2010 06:52:12" />
     <file relUrl="bin/Microsoft.Practices.ServiceLocation.xml" publishTime="04/16/2010 14:42:32" />
-    <file relUrl="Pages/DetailedStats.aspx" publishTime="11/18/2010 23:48:25" />
+    <file relUrl="Pages/DetailedStats.aspx" publishTime="12/19/2010 13:34:22" />
     <file relUrl="Static/trade_already_completedorrejected.html" publishTime="11/09/2010 19:25:32" />
     <file relUrl="Static/no_trading_allowed.html" publishTime="11/09/2010 19:25:32" />
     <file relUrl="Pages/TransactionEditor.aspx" publishTime="12/19/2010 12:09:56" />
