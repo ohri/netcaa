@@ -24,7 +24,7 @@
                 <br />
                 <br />
                 <asp:Label ID="lblPageTitle" runat="server" CssClass="pagetitle">Box Score</asp:Label>
-                <hr align="left" width="100%" color="red" size="1">
+                <hr align="left" width="100%" color="navy" size="1">
                 <br />
                 <br />
                 <asp:Label ID="lblGameScore" runat="server"></asp:Label>

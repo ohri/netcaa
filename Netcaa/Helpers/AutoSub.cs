@@ -190,7 +190,8 @@ public class AutoSub
             case 8:
                 if (PlayerPosition.Equals("F")
                     || PlayerPosition.Equals("GF")
-                    || PlayerPosition.Equals("FG")
+                    || PlayerPosition.Equals( "FG" )
+                    || PlayerPosition.Equals( "G" )
                     )
                 {
                     return true;
@@ -213,6 +214,7 @@ public class AutoSub
                 if (PlayerPosition.Equals("C")
                     || PlayerPosition.Equals("CF")
                     || PlayerPosition.Equals("FC")
+                    || PlayerPosition.Equals( "F" )
                     )
                 {
                     return true;
