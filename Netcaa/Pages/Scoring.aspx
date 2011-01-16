@@ -8,6 +8,12 @@
 <head>
     <title>Scoring</title>
     <link href="/Styles/netcaa.css" type="text/css" rel="stylesheet" />
+    <style type="text/css">
+        .style1
+        {
+            color: #FF0000;
+        }
+    </style>
 </head>
 <body>
     <form id="Form1" method="post" runat="server">
@@ -35,11 +41,14 @@
                     <asp:DropDownList ID="ddlWeeks" runat="server">
                     </asp:DropDownList>
                     &nbsp;
-                    <asp:Button ID="btnAutosub" runat="server" OnClick="btnAutosub_Click" OnClientClick="return confirm('Are you sure you want to autosub?');"
-                        Text="Autosub" />
                     &nbsp;
                     <asp:Button ID="ButtonFinalize" runat="server" Text="Finalize Scores" OnClick="ButtonFinalize_Click"
-                        OnClientClick="return confirm('Are you sure you want to finalize?');"></asp:Button></p>
+                        OnClientClick="return confirm('Are you sure you want to finalize?');"></asp:Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <asp:Button ID="btnAutosub" runat="server" OnClick="btnAutosub_Click" OnClientClick="return confirm('Are you sure you want to autosub?');"
+                        Text="Autosub" />
+                    </p>
+                <p class="style1">
+                    Note: finalize now calls auto-sub and refreshes boxes</p>
                 <div class="navdivider">
                 </div>
                 <asp:Calendar ID="calStatDate" runat="server"></asp:Calendar>

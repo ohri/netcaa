@@ -65,10 +65,13 @@ namespace netcaa.Pages
 
 		protected void ButtonFinalize_Click(object sender, System.EventArgs e)
 		{
-            SqlHelper.ExecuteNonQuery(System.Configuration.ConfigurationManager.AppSettings["ConnectionString"],
-				"spFinalizeGames", Convert.ToInt32( ddlWeeks.SelectedValue ) );
-			Log.AddLogEntry( LogEntryTypes.WeekFinalized, Page.User.Identity.Name, "Finalized stats for weekid " + ddlWeeks.SelectedValue + ", week " + ddlWeeks.SelectedItem.Text );
-		}
+            SqlDatabase db = new SqlDatabase( System.Configuration.ConfigurationManager.AppSettings["ConnectionString"] );
+            tbOutput.Text += Autosub( ddlWeeks.SelectedValue, db, calStatDate.SelectedDate );
+            SqlHelper.ExecuteNonQuery( System.Configuration.ConfigurationManager.AppSettings["ConnectionString"],
+                "spFinalizeGames", Convert.ToInt32( ddlWeeks.SelectedValue ) );
+            tbOutput.Text += "\r\nGames finalized for week " + ddlWeeks.SelectedItem.Text;
+            Log.AddLogEntry( LogEntryTypes.WeekFinalized, Page.User.Identity.Name, "Finalized stats for weekid " + ddlWeeks.SelectedValue + ", week " + ddlWeeks.SelectedItem.Text );
+        }
 
 		protected void ButtonProcessDaily_Click(object sender, System.EventArgs e)
 		{
@@ -118,8 +121,16 @@ namespace netcaa.Pages
         }
         protected void btnAutosub_Click( object sender, EventArgs e )
         {
-            string result = AutoSub.ProcessAutosubs( ddlWeeks.SelectedValue );
-            tbOutput.Text += result;
+            SqlDatabase db = new SqlDatabase( System.Configuration.ConfigurationManager.AppSettings["ConnectionString"] );
+            tbOutput.Text += Autosub( ddlWeeks.SelectedValue, db, calStatDate.SelectedDate );
+        }
+
+        protected string Autosub( string weekId, SqlDatabase db, DateTime selectedDate )
+        {
+            string result = AutoSub.ProcessAutosubs( weekId );
+            StatGrabber.StatGrabber sg = new StatGrabber.StatGrabber();
+            result += sg.UpdateAveragesAndScores( db, selectedDate );
+            return result;
         }
 
         protected void ButtonClear_Click( object sender, EventArgs e )
