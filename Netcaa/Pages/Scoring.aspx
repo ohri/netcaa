@@ -61,6 +61,16 @@
                 <p>
                     <asp:TextBox ID="tbOutput" runat="server" ReadOnly="True" Width="622px" Height="348px"
                         TextMode="MultiLine"></asp:TextBox></p>
+                <p>
+                    &nbsp;</p>
+                <p>
+                    Manually run a boxscore (paste url into text box):</p>
+                <p>
+                    <asp:TextBox ID="tbManualBoxURL" runat="server" Width="447px"></asp:TextBox>
+&nbsp;&nbsp;
+                    <asp:Button ID="btnProcessManualBox" runat="server" 
+                        onclick="btnProcessManualBox_Click" Text="Go" />
+                </p>
             </td>
         </tr>
     </table>

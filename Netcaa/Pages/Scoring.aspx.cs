@@ -137,5 +137,41 @@ namespace netcaa.Pages
         {
             tbOutput.Text = "";
         }
+
+        protected void btnProcessManualBox_Click( object sender, EventArgs e )
+        {
+            StatGrabber.StatGrabber sg = new StatGrabber.StatGrabber();
+            SqlDatabase db = new SqlDatabase( System.Configuration.ConfigurationManager.AppSettings["ConnectionString"] );
+            ArrayList problems = new ArrayList();
+            try
+            {
+                ArrayList perfs = sg.GetGamePerformances( tbManualBoxURL.Text );
+                tbOutput.Text += "Got " + perfs.Count + " perfs from " + tbManualBoxURL.Text + "\r\n";
+                problems.AddRange( sg.SavePerformances( db, perfs, calStatDate.SelectedDate ) );
+            }
+            catch( StatGrabber.StatGrabberException ex )
+            {
+                tbOutput.Text += ex.Message;
+            }
+            if( problems.Count > 0 )
+            {
+                tbOutput.Text += "Problems:\r\n";
+                foreach( StatGrabber.PlayerPerformance p in problems )
+                {
+                    tbOutput.Text += p.FirstName + " " + p.LastName + " " + p.TeamName + "\r\n";
+                }
+            }
+            else
+            {
+                tbOutput.Text += "No problems identifying players\r\n";
+            }
+
+            tbOutput.Text += sg.UpdateAveragesAndScores( db, calStatDate.SelectedDate );
+
+            Log.AddLogEntry(
+                LogEntryTypes.StatsProcessed,
+                Page.User.Identity.Name,
+                tbOutput.Text );
+        }
     }
 }

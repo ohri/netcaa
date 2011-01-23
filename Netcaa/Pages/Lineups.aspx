@@ -93,7 +93,7 @@
                                         <asp:Label ID="lblBackupPF" runat="server" CssClass="handcursor" BorderStyle="Solid"
                                             Width="160px" Font-Size="X-Small" BorderColor="Silver" BackColor="#E0E0E0" BorderWidth="1px"
                                             onClick='$("#hiddenBPF").val( $("#lbRoster").val() );$("#lblBackupPF").html( $("#lbRoster :selected").text() );'>
-                                            >Pick 'n Click</asp:Label><br />
+                                            Pick 'n Click</asp:Label><br />
                                         <br />
                                         <strong>C&nbsp;</strong>&nbsp;:
                                         <asp:Label ID="lblBackupC" runat="server" CssClass="handcursor" BorderStyle="Solid"
