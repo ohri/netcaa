@@ -13,6 +13,7 @@
     <RootNamespace>netcaa</RootNamespace>
     <AssemblyName>Netcaa</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -145,7 +146,9 @@
     <Content Include="Static\trade_isnt_valid.html" />
     <Content Include="Styles\netcaa.css" />
     <Content Include="Controls\TopPlayersLastNight.ascx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

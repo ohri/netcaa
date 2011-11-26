@@ -42,7 +42,7 @@ namespace StatGrabber
                             ePos = me.Index;
                             if( ePos > -1 )
                             {
-                                string url = "http://espn.go.com" + page.Substring( sPos, ePos - sPos );
+                                string url = "http://scores.espn.go.com" + page.Substring( sPos, ePos - sPos );
                                 if( !retval.Contains( url ) )
                                 {
                                     retval.Add( url );
@@ -56,12 +56,19 @@ namespace StatGrabber
             return retval;
         }
 
-        public ArrayList GetGamePerformances( string url )
+        public ArrayList GetGamePerformances( string url, ArrayList problems )
         {
             Regex GetTeams = new Regex( @"</div>(.*)</th></tr><tr align=.right. class=.colhead.>" );
             Regex GetPlayerStatRows = new Regex( @"<td style=.text-align:left;. nowrap>(.*)?</td></tr>" );
             Regex SplitStatRows = new Regex( @"</td><td.*?>" );
-            Regex ExtractPlayerName = new Regex( @"^(?:.+?>)?([\w\.\'-]+)\s+?([\w\.\'-]+(?:\s[\w.]+)?)(?:.*?)?$" );
+//            Regex ExtractPlayerName = new Regex( @"^(?:.+?>)?([\w\.\'-]+)\s+?([\w\.\'-]+(?:\s[\w.]+)?)(?:.*?)?$" );
+//Regex ExtractPlayerName = new Regex( @"^(?:.+?>)?([\w\.\'-\(\)]+)\s+?([\w\.\'-\(\)]+(?:\s[\w.\(\)]+)?)(?:.*?)?$" );
+            //                                       -atag-   --first name--      ---last name-------------------
+            Regex ExtractPlayerName = new Regex( @"^(?:.+?>)?(.+?)\s(.+?)<.*?$" );
+            // julie put in this simplified version 11/26/11; seems to work fine, not sure
+            // why we had a more complex version before. definitely wasnt working for players
+            // with a dash in first name
+            
             Regex ExtractShots = new Regex( @"([0-9]*)\-([0-9]*)" );
             string Page = WebPageToString( url );
 
@@ -96,75 +103,75 @@ namespace StatGrabber
                 MatchCollection PlayerName = ExtractPlayerName.Matches( Cells[0] );
                 if( PlayerName.Count < 1 )
                 {
-                    StatGrabberException ex = new StatGrabberException(
-                        "Player's name doesn't match the pattern: " + Cells[0] );
-                    throw ex;
+                    p.FirstName = "Player's name doesn't match the pattern: " + Cells[0];
+                    p.LastName = " in " + Cells[0];
+                    problems.Add( p );
                 }
                 else
                 {
                     p.FirstName = PlayerName[0].Groups[1].Value;
                     p.LastName = PlayerName[0].Groups[2].Value;
-                }
 
-                if( i.Index >= HomeAfterThis )
-                {
-                    p.TeamName = TeamMatches[1].Groups[1].Value;
-                    p.Opponent = TeamMatches[0].Groups[1].Value;
-                }
-                else
-                {
-                    p.TeamName = TeamMatches[0].Groups[1].Value;
-                    p.Opponent = TeamMatches[1].Groups[1].Value;
-                }
-                try
-                {
-                    // cell 1 has minutes
-                    p.Minutes = Convert.ToInt32( Cells[1] );
+                    if( i.Index >= HomeAfterThis )
+                    {
+                        p.TeamName = TeamMatches[1].Groups[1].Value;
+                        p.Opponent = TeamMatches[0].Groups[1].Value;
+                    }
+                    else
+                    {
+                        p.TeamName = TeamMatches[0].Groups[1].Value;
+                        p.Opponent = TeamMatches[1].Groups[1].Value;
+                    }
+                    try
+                    {
+                        // cell 1 has minutes
+                        p.Minutes = Convert.ToInt32( Cells[1] );
 
-                    // cell 2 has made-attempted FG
-                    Match fgs = ExtractShots.Match( Cells[2] );
-                    p.ShotsMade = Convert.ToInt32( fgs.Groups[1].Value );
-                    p.ShotAttempts = Convert.ToInt32( fgs.Groups[2].Value );
+                        // cell 2 has made-attempted FG
+                        Match fgs = ExtractShots.Match( Cells[2] );
+                        p.ShotsMade = Convert.ToInt32( fgs.Groups[1].Value );
+                        p.ShotAttempts = Convert.ToInt32( fgs.Groups[2].Value );
 
-                    // cell 3 has made-attempted on 3 pointers
-                    Match threes = ExtractShots.Match( Cells[3] );
-                    p.ThreesMade = Convert.ToInt32( threes.Groups[1].Value );
-                    p.ThreeAttempts = Convert.ToInt32( threes.Groups[2].Value );
+                        // cell 3 has made-attempted on 3 pointers
+                        Match threes = ExtractShots.Match( Cells[3] );
+                        p.ThreesMade = Convert.ToInt32( threes.Groups[1].Value );
+                        p.ThreeAttempts = Convert.ToInt32( threes.Groups[2].Value );
 
-                    // cell 4 has made-attempted FT
-                    Match fts = ExtractShots.Match( Cells[4] );
-                    p.FTsMade = Convert.ToInt32( fts.Groups[1].Value );
-                    p.FTAttempts = Convert.ToInt32( fts.Groups[2].Value );
+                        // cell 4 has made-attempted FT
+                        Match fts = ExtractShots.Match( Cells[4] );
+                        p.FTsMade = Convert.ToInt32( fts.Groups[1].Value );
+                        p.FTAttempts = Convert.ToInt32( fts.Groups[2].Value );
 
-                    // cell 5 has off rebs
-                    p.OffensiveRebounds = Convert.ToInt32( Cells[5] );
+                        // cell 5 has off rebs
+                        p.OffensiveRebounds = Convert.ToInt32( Cells[5] );
 
-                    // cell 6 has rebs
-                    p.DefensiveRebounds = Convert.ToInt32( Cells[6] ) - p.OffensiveRebounds;
+                        // cell 6 has rebs
+                        p.DefensiveRebounds = Convert.ToInt32( Cells[6] ) - p.OffensiveRebounds;
 
-                    // cell 7 has ast
-                    p.Assists = Convert.ToInt32( Cells[7] );
+                        // cell 7 has ast
+                        p.Assists = Convert.ToInt32( Cells[7] );
 
-                    // cell 8 has stl
-                    p.Steals = Convert.ToInt32( Cells[8] );
+                        // cell 8 has stl
+                        p.Steals = Convert.ToInt32( Cells[8] );
 
-                    // cell 9 has blocks
-                    p.Blocks += Convert.ToInt32( Cells[9] );
+                        // cell 9 has blocks
+                        p.Blocks += Convert.ToInt32( Cells[9] );
 
-                    // cell 10 has to
-                    p.Turnovers = Convert.ToInt32( Cells[10] );
+                        // cell 10 has to
+                        p.Turnovers = Convert.ToInt32( Cells[10] );
 
-                    // cell 11 has pf
-                    p.Fouls = Convert.ToInt32( Cells[11] );
+                        // cell 11 has pf
+                        p.Fouls = Convert.ToInt32( Cells[11] );
 
-                    perfs.Add( p );
-                }
-                catch( System.FormatException e )
-                {
-                    // yes, this is a horrible thing to do, but it works and i'm 
-                    // too lazy to switch it
-                    // this exception happens when the player gets a DNP of some
-                    // sort
+                        perfs.Add( p );
+                    }
+                    catch( System.FormatException e )
+                    {
+                        // yes, this is a horrible thing to do, but it works and i'm 
+                        // too lazy to switch it
+                        // this exception happens when the player gets a DNP of some
+                        // sort
+                    }
                 }
             }
             return perfs;

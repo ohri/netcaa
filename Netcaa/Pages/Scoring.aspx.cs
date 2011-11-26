@@ -89,13 +89,13 @@ namespace netcaa.Pages
             {
                 try
                 {
-                    ArrayList perfs = sg.GetGamePerformances( url );
+                    ArrayList perfs = sg.GetGamePerformances( url, problems );
                     tbOutput.Text += "Got " + perfs.Count + " perfs from " + url + "\r\n";
                     problems.AddRange( sg.SavePerformances( db, perfs, calStatDate.SelectedDate ) );
                 }
                 catch( StatGrabber.StatGrabberException ex )
                 {
-                    tbOutput.Text += ex.Message;
+                    tbOutput.Text += ex.Message + "\r\n";
                 }
             }
 
@@ -145,7 +145,7 @@ namespace netcaa.Pages
             ArrayList problems = new ArrayList();
             try
             {
-                ArrayList perfs = sg.GetGamePerformances( tbManualBoxURL.Text );
+                ArrayList perfs = sg.GetGamePerformances( tbManualBoxURL.Text, problems );
                 tbOutput.Text += "Got " + perfs.Count + " perfs from " + tbManualBoxURL.Text + "\r\n";
                 problems.AddRange( sg.SavePerformances( db, perfs, calStatDate.SelectedDate ) );
             }
