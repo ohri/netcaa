@@ -141,7 +141,7 @@ namespace StatGrabberTest
             {
                 try
                 {
-                    ArrayList perfs = sg.GetGamePerformances( url );
+                    ArrayList perfs = sg.GetGamePerformances( url, problems );
                     tbOutput.Text += "Got " + perfs.Count + " perfs from " + url + "\r\n";
                     problems.AddRange( sg.SavePerformances( db, perfs, calStatDate.SelectionStart ) );
                 }

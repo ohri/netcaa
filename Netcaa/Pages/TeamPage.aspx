@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" Inherits="netcaa.Pages.TeamPage"
+<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="True" Inherits="netcaa.Pages.TeamPage"
     ValidateRequest="false" Title="Team Page" CodeBehind="TeamPage.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Title" runat="Server">
@@ -10,7 +10,7 @@
             <td>
                 <p>
                     <font size="3">
-                        <asp:Literal ID="litEmailAddress" runat="server"></asp:Literal>
+                        <asp:HyperLink ID="hlEmail" runat="server">HyperLink</asp:HyperLink>
                         <asp:Literal ID="litOwnerInfo" runat="server"></asp:Literal>
                         <asp:Literal ID="litEditLink" runat="server"></asp:Literal>
                     </font>
@@ -32,38 +32,49 @@
                 </p>
             </td></tr><tr>
             <td colspan="2" width="600">
-                <asp:DataGrid ID="dgRoster" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                    CssClass="grid">
+                <asp:GridView ID="gvRoster" runat="server" CssClass="grid" AutoGenerateColumns="False" CellPadding="6" 
+                    CellSpacing="6" onrowdatabound="gvRoster_RowDataBound" DataKeyNames="PlayerId" >
                     <HeaderStyle CssClass="gridheader"></HeaderStyle>
                     <Columns>
-                        <asp:HyperLinkColumn DataNavigateUrlField="PlayerId" DataNavigateUrlFormatString="DetailedStats.aspx?PlayerId={0}"
+                        <asp:HyperLinkField DataNavigateUrlFields="PlayerId" DataNavigateUrlFormatString="DetailedStats.aspx?PlayerId={0}"
                             DataTextField="Player" HeaderText="Name">
                             <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False"
                                 Font-Underline="False" HorizontalAlign="Left" />
-                        </asp:HyperLinkColumn>
-                        <asp:BoundColumn DataField="Position" HeaderText="Pos">
+                        </asp:HyperLinkField>
+                        <asp:BoundField DataField="Position" HeaderText="Pos">
                             <ItemStyle HorizontalAlign="Center"></ItemStyle>
-                        </asp:BoundColumn>
-                        <asp:HyperLinkColumn DataNavigateUrlField="RealTeamId" DataNavigateUrlFormatString="RealTeamView.aspx?RealTeamId={0}"
-                            DataTextField="RealTeam" HeaderText="Team"></asp:HyperLinkColumn>
-                        <asp:BoundColumn DataField="NetPPG" HeaderText="NetPPG" DataFormatString="{0:0.0}">
+                        </asp:BoundField>
+                        <asp:HyperLinkField DataNavigateUrlFields="RealTeamId" DataNavigateUrlFormatString="RealTeamView.aspx?RealTeamId={0}"
+                            DataTextField="RealTeam" HeaderText="Team">
+                        </asp:HyperLinkField>
+                        <asp:BoundField DataField="NetPPG" HeaderText="NetPPG" DataFormatString="{0:0.0}">
                             <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False"
                                 Font-Underline="False" HorizontalAlign="Center" />
-                        </asp:BoundColumn>
-                        <asp:BoundColumn DataField="NetPPM" HeaderText="NetPPM" DataFormatString="{0:0.00}">
+                        </asp:BoundField>
+                        <asp:BoundField DataField="NetPPM" HeaderText="NetPPM" DataFormatString="{0:0.00}">
                             <ItemStyle HorizontalAlign="Center"></ItemStyle>
-                        </asp:BoundColumn>
-                        <asp:BoundColumn DataField="LastGame" HeaderText="Last Game">
+                        </asp:BoundField>
+                        <asp:BoundField DataField="LastGame" HeaderText="Last Game">
                             <ItemStyle HorizontalAlign="Center"></ItemStyle>
-                        </asp:BoundColumn>
-                        <asp:TemplateColumn HeaderText="Status">
+                        </asp:BoundField>
+                        <asp:TemplateField HeaderText="Status" Visible="true">
                             <ItemTemplate>
-                                <center>
-                                    <asp:Literal ID="litIR" runat="server"></asp:Literal></center>
+                                <asp:Label ID="lblIR" Font-Bold="True" ForeColor="Red" Text='<%# Bind("OnIR") %>'  
+                                    runat="server" />
+                                <asp:Label ID="lblProtected" Visible="false" Text="&nbsp;&nbsp;Protected&nbsp;" ForeColor="Black" 
+                                    Font-Bold="true" runat="server"  />
                             </ItemTemplate>
-                        </asp:TemplateColumn>
+                            <ItemStyle HorizontalAlign="Center" />
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Protected?" Visible="true" >
+                            <ItemTemplate>
+                                <asp:CheckBox ID="cbProtected" runat="server" OnCheckedChanged="cbProtected_OnCheckedChanged"
+                                    AutoPostBack="true" Checked='<%# Convert.ToBoolean(Eval("IsProtected")) %>' />
+                            </ItemTemplate>                    
+                            <ItemStyle HorizontalAlign="Center" />
+                        </asp:TemplateField>
                     </Columns>
-                </asp:DataGrid>
+                </asp:GridView>
             </td>
         </tr>
     </table>
