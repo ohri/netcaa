@@ -20,6 +20,13 @@ a:hover
 	text-decoration:underline;
 }
 
+.lineup_validation_error
+{
+    font-size: xx-small;
+    font-style: italic;
+    color: Red;
+}
+
 .subtlegrid
 {
     border-style: none;

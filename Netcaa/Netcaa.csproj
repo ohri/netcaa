@@ -125,7 +125,7 @@
     <Content Include="Pages\Transactions.aspx" />
     <Content Include="Pages\BoxScore.aspx" />
     <Content Include="Scripts\basic.js" />
-    <Content Include="Scripts\JScript.js" />
+    <Content Include="Scripts\lineup_validation.js" />
     <Content Include="Scripts\MoveItem.js" />
     <Content Include="Scripts\mySubmit.js" />
     <Content Include="Scripts\SelectSwapMove.js" />
