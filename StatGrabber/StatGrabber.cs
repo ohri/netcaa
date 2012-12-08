@@ -24,7 +24,7 @@ namespace StatGrabber
             DataSet conferences = db.ExecuteDataSet( "spFetchRealConferences" );
             foreach( DataRow r in conferences.Tables[0].Rows )
             {
-                if( (bool)r["IsAvailableForUse"] )
+                if( Boolean.Parse( r["IsAvailableForUse"].ToString() ) )
                 {
                     string page = WebPageToString( "http://scores.espn.go.com/ncb/scoreboard?confId=" + r["ESPNId"] + "&date=" + DateToString( DateToGet ) );
 
