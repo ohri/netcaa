@@ -64,11 +64,16 @@ namespace StatGrabber
 //            Regex ExtractPlayerName = new Regex( @"^(?:.+?>)?([\w\.\'-]+)\s+?([\w\.\'-]+(?:\s[\w.]+)?)(?:.*?)?$" );
 //Regex ExtractPlayerName = new Regex( @"^(?:.+?>)?([\w\.\'-\(\)]+)\s+?([\w\.\'-\(\)]+(?:\s[\w.\(\)]+)?)(?:.*?)?$" );
             //                                       -atag-   --first name--      ---last name-------------------
-            Regex ExtractPlayerName = new Regex( @"^(?:.+?>)?(.+?)\s(.+?)<.*?$" );
+            Regex ExtractPlayerName = new Regex( @"^(?:.+?>)?(.+?)(\s)(.+?)<.*?$" );
             // julie put in this simplified version 11/26/11; seems to work fine, not sure
             // why we had a more complex version before. definitely wasnt working for players
             // with a dash in first name
-            
+
+            // <td style="text-align:left;" nowrap>A Thomas II</td>
+            // <td style="text-align:left;" nowrap><a href="http://espn.go.com/mens-college-basketball/player/_/id/51354/okaro-white">Okaro White</a>, F</td>
+
+            Regex ExtractPlayerNameNoLink = new Regex( @"^([A-Z])\s(.+)" );
+
             Regex ExtractShots = new Regex( @"([0-9]*)\-([0-9]*)" );
             string Page = WebPageToString( url );
 
@@ -103,10 +108,14 @@ namespace StatGrabber
                 MatchCollection PlayerName = ExtractPlayerName.Matches( Cells[0] );
                 if( PlayerName.Count < 1 )
                 {
-                    p.FirstName = "Player's name doesn't match the pattern: " + Cells[0];
-                    p.LastName = " in " + Cells[0];
-                    problems.Add( p );
-                }
+                    // try the no-link version
+                    PlayerName = ExtractPlayerNameNoLink.Matches( Cells[0] );
+                    if( PlayerName.Count < 1 )
+                    {
+                        p.FirstName = "Player's name doesn't match the pattern: " + Cells[0];
+                        p.LastName = " in " + Cells[0];
+                        problems.Add( p );
+                    }
                 else
                 {
                     p.FirstName = PlayerName[0].Groups[1].Value;
@@ -173,6 +182,7 @@ namespace StatGrabber
                         // sort
                     }
                 }
+                    }
             }
             return perfs;
         }
