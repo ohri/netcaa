@@ -106,21 +106,33 @@ namespace StatGrabber
 
                 PlayerPerformance p = new PlayerPerformance();
                 MatchCollection PlayerName = ExtractPlayerName.Matches( Cells[0] );
-                if( PlayerName.Count < 1 )
+
+                bool happy = true;
+                if( PlayerName.Count >= 1 )
+                {
+                    p.FirstName = PlayerName[0].Groups[1].Value;
+                    p.LastName = PlayerName[0].Groups[3].Value;
+                }
+                else
                 {
                     // try the no-link version
                     PlayerName = ExtractPlayerNameNoLink.Matches( Cells[0] );
-                    if( PlayerName.Count < 1 )
+                    if( PlayerName.Count >= 1 )
+                    {
+                        p.FirstName = PlayerName[0].Groups[1].Value;
+                        p.LastName = PlayerName[0].Groups[2].Value;
+                    }
+                    else
                     {
                         p.FirstName = "Player's name doesn't match the pattern: " + Cells[0];
                         p.LastName = " in " + Cells[0];
                         problems.Add( p );
+                        happy = false;
                     }
-                else
+                }
+                
+                if( happy )
                 {
-                    p.FirstName = PlayerName[0].Groups[1].Value;
-                    p.LastName = PlayerName[0].Groups[2].Value;
-
                     if( i.Index >= HomeAfterThis )
                     {
                         p.TeamName = TeamMatches[1].Groups[1].Value;
@@ -182,7 +194,6 @@ namespace StatGrabber
                         // sort
                     }
                 }
-                    }
             }
             return perfs;
         }
