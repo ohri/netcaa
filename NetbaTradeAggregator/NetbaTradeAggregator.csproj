@@ -13,11 +13,9 @@
     <FileAlignment>512</FileAlignment>
     <RootNamespace>NetbaTradeAggregator</RootNamespace>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <OldToolsVersion>3.5</OldToolsVersion>
+    <FileUpgradeFlags>40</FileUpgradeFlags>
+    <UpgradeBackupLocation>\\psf\Home\Documents\Dev\Projects\Netcaa\Backup\NetbaTradeAggregator\</UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
     <ConnectionString>
     </ConnectionString>
   </PropertyGroup>

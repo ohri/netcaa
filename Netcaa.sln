@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Netcaa", "Netcaa\Netcaa.csproj", "{61DB63E7-B356-41CF-8692-E83A61CE882A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logger", "Logger\Logger.csproj", "{6D4E3E76-4170-4077-AA37-49515CF16A26}"
@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StatGrabber", "StatGrabber\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StatGrabberTest", "StatGrabberTest\StatGrabberTest.csproj", "{1D121B8E-8CF6-46F8-BB58-DA93F9B3F63F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetbaTradeAggregator", "NetbaTradeAggregator\NetbaTradeAggregator.csproj", "{A1AAEAC3-D92E-41C0-8B28-0345FC43BCCE}"
+Project("{006AC3C3-E446-4C8A-B35F-CBA0E2238D60}") = "NetbaTradeAggregator", "NetbaTradeAggregator\NetbaTradeAggregator.csproj", "{A1AAEAC3-D92E-41C0-8B28-0345FC43BCCE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

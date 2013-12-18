@@ -58,8 +58,8 @@ namespace StatGrabber
 
         public ArrayList GetGamePerformances( string url, ArrayList problems )
         {
-            Regex GetTeams = new Regex( @"</div>(.*)</th></tr><tr align=.right. class=.colhead.>" );
-            Regex GetPlayerStatRows = new Regex( @"<td style=.text-align:left;. nowrap>(.*)?</td></tr>" );
+            Regex GetTeams = new Regex( @"6px;""></div>(.*)</th></tr><tr" );
+            Regex GetPlayerStatRows = new Regex( @"<td style=.text-align:left. nowrap>(.*)?</td></tr>" );
             Regex SplitStatRows = new Regex( @"</td><td.*?>" );
 //            Regex ExtractPlayerName = new Regex( @"^(?:.+?>)?([\w\.\'-]+)\s+?([\w\.\'-]+(?:\s[\w.]+)?)(?:.*?)?$" );
 //Regex ExtractPlayerName = new Regex( @"^(?:.+?>)?([\w\.\'-\(\)]+)\s+?([\w\.\'-\(\)]+(?:\s[\w.\(\)]+)?)(?:.*?)?$" );
@@ -71,6 +71,8 @@ namespace StatGrabber
 
             // <td style="text-align:left;" nowrap>A Thomas II</td>
             // <td style="text-align:left;" nowrap><a href="http://espn.go.com/mens-college-basketball/player/_/id/51354/okaro-white">Okaro White</a>, F</td>
+
+            // <td style="text-align:left" nowrap><a href="http://espn.go.com/mens-college-basketball/player/_/id/58169/javonte-green">Javonte Green</a>, F</td><td>19</td><td>6-11</td><td>0-2</td><td>3-3</td><td align="right">2</td><td align="right">4</td><td>6</td><td>0</td><td>2</td><td>0</td><td>1</td><td>3</td><td>15</td></tr><tr align="right" class=odd>
 
             Regex ExtractPlayerNameNoLink = new Regex( @"^([A-Z])\s(.+)" );
 

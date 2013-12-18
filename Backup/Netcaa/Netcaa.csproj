@@ -1,0 +1,465 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{61DB63E7-B356-41CF-8692-E83A61CE882A}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>netcaa</RootNamespace>
+    <AssemblyName>Netcaa</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=4.1.40412.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationBlocks.Data">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft Application Blocks for .NET\Data Access\Code\CS\Microsoft.ApplicationBlocks.Data\bin\Release\Microsoft.ApplicationBlocks.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\EntLib50Src\bin\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\EntLib50Src\bin\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\EntLib50Src\bin\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\EntLib50Src\bin\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\EntLib50Src\bin\Microsoft.Practices.Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="WebChart, Version=1.1.1.4, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\WebChart.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\netcaa.gif" />
+    <Content Include="Pages\admin.aspx" />
+    <Content Include="Controls\Alerts.ascx" />
+    <Content Include="Controls\Footer.ascx" />
+    <Content Include="Controls\Header.ascx" />
+    <Content Include="Pages\ChangePassword.aspx" />
+    <Content Include="Pages\DetailedStats.aspx" />
+    <Content Include="Pages\Draft.aspx" />
+    <Content Include="Pages\EditInfo.aspx" />
+    <Content Include="Pages\home.aspx" />
+    <Content Include="Images\active_trades2.png" />
+    <Content Include="Images\arr.down.gif" />
+    <Content Include="Images\arr.left.gif" />
+    <Content Include="Images\arr.right.gif" />
+    <Content Include="Images\arr.up.gif" />
+    <Content Include="Images\completed_trades.png" />
+    <Content Include="Images\ir.gif" />
+    <Content Include="Pages\Lineups.aspx" />
+    <Content Include="Pages\login.aspx" />
+    <Content Include="Controls\NavBar.ascx" />
+    <Content Include="Controls\scoreboard.ascx" />
+    <Content Include="Pages\LogViewer.aspx" />
+    <Content Include="Pages\PlayerEditor.aspx" />
+    <Content Include="Pages\PlayerSearch.aspx" />
+    <Content Include="Pages\PostNews.aspx" />
+    <Content Include="Pages\PowerRatings.aspx" />
+    <Content Include="Pages\RealTeamView.aspx" />
+    <Content Include="Pages\Reports.aspx" />
+    <Content Include="Pages\Rules.aspx" />
+    <Content Include="Pages\Schedule.aspx" />
+    <Content Include="Pages\Scoring.aspx" />
+    <Content Include="Pages\SelectPlayer.aspx" />
+    <Content Include="Pages\SelectPlayers.aspx" />
+    <Content Include="Pages\Standings.aspx" />
+    <Content Include="Pages\TeamDraft.aspx" />
+    <Content Include="Pages\TeamHistory.aspx" />
+    <Content Include="Pages\TeamPage.aspx" />
+    <Content Include="Pages\TradeList.aspx" />
+    <Content Include="Pages\TradePropose.aspx" />
+    <Content Include="Pages\TransactionEditor.aspx" />
+    <Content Include="Pages\Transactions.aspx" />
+    <Content Include="Pages\BoxScore.aspx" />
+    <Content Include="Scripts\basic.js" />
+    <Content Include="Scripts\lineup_validation.js" />
+    <Content Include="Scripts\MoveItem.js" />
+    <Content Include="Scripts\mySubmit.js" />
+    <Content Include="Scripts\SelectSwapMove.js" />
+    <Content Include="Scripts\StashItems.js" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.4.1.js" />
+    <Content Include="Scripts\jquery-1.4.1.min.js" />
+    <Content Include="Site.Master" />
+    <Content Include="Static\bad_params.html" />
+    <Content Include="Static\default_error.html" />
+    <Content Include="Static\notauthorized.html" />
+    <Content Include="Static\not_your_trade.html" />
+    <Content Include="Static\no_lineups.html" />
+    <Content Include="Static\no_trading_allowed.html" />
+    <Content Include="Static\trade_already_completed.html" />
+    <Content Include="Static\trade_already_completedorrejected.html" />
+    <Content Include="Static\trade_isnt_valid.html" />
+    <Content Include="Styles\netcaa.css" />
+    <Content Include="Controls\TopPlayersLastNight.ascx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Helpers\AutoSub.cs" />
+    <Compile Include="Helpers\SupportFunctions.cs" />
+    <Compile Include="Helpers\TransactionTypes.cs" />
+    <Compile Include="Pages\admin.aspx.cs">
+      <DependentUpon>admin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Alerts.ascx.cs">
+      <DependentUpon>Alerts.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Alerts.ascx.designer.cs">
+      <DependentUpon>Alerts.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\DBUtilities.cs" />
+    <Compile Include="Controls\Footer.ascx.cs">
+      <DependentUpon>Footer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Footer.ascx.designer.cs">
+      <DependentUpon>Footer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Header.ascx.cs">
+      <DependentUpon>Header.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Header.ascx.designer.cs">
+      <DependentUpon>Header.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\admin.aspx.designer.cs">
+      <DependentUpon>admin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ChangePassword.aspx.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\ChangePassword.aspx.designer.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\DetailedStats.aspx.cs">
+      <DependentUpon>DetailedStats.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\DetailedStats.aspx.designer.cs">
+      <DependentUpon>DetailedStats.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Draft.aspx.cs">
+      <DependentUpon>Draft.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Draft.aspx.designer.cs">
+      <DependentUpon>Draft.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\EditInfo.aspx.cs">
+      <DependentUpon>EditInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\EditInfo.aspx.designer.cs">
+      <DependentUpon>EditInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\home.aspx.cs">
+      <DependentUpon>home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\home.aspx.designer.cs">
+      <DependentUpon>home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Lineups.aspx.cs">
+      <DependentUpon>Lineups.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Lineups.aspx.designer.cs">
+      <DependentUpon>Lineups.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\login.aspx.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\login.aspx.designer.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\mailer.cs" />
+    <Compile Include="Controls\NavBar.ascx.cs">
+      <DependentUpon>NavBar.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\NavBar.ascx.designer.cs">
+      <DependentUpon>NavBar.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\LogViewer.aspx.cs">
+      <DependentUpon>LogViewer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\LogViewer.aspx.designer.cs">
+      <DependentUpon>LogViewer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PlayerEditor.aspx.cs">
+      <DependentUpon>PlayerEditor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\PlayerEditor.aspx.designer.cs">
+      <DependentUpon>PlayerEditor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PlayerSearch.aspx.cs">
+      <DependentUpon>PlayerSearch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\PlayerSearch.aspx.designer.cs">
+      <DependentUpon>PlayerSearch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PostNews.aspx.cs">
+      <DependentUpon>PostNews.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\PostNews.aspx.designer.cs">
+      <DependentUpon>PostNews.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PowerRatings.aspx.cs">
+      <DependentUpon>PowerRatings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\PowerRatings.aspx.designer.cs">
+      <DependentUpon>PowerRatings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RealTeamView.aspx.cs">
+      <DependentUpon>RealTeamView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\RealTeamView.aspx.designer.cs">
+      <DependentUpon>RealTeamView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Reports.aspx.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Reports.aspx.designer.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Rules.aspx.cs">
+      <DependentUpon>Rules.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Rules.aspx.designer.cs">
+      <DependentUpon>Rules.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Schedule.aspx.cs">
+      <DependentUpon>Schedule.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Schedule.aspx.designer.cs">
+      <DependentUpon>Schedule.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Scoring.aspx.cs">
+      <DependentUpon>Scoring.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Scoring.aspx.designer.cs">
+      <DependentUpon>Scoring.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SelectPlayer.aspx.cs">
+      <DependentUpon>SelectPlayer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\SelectPlayer.aspx.designer.cs">
+      <DependentUpon>SelectPlayer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SelectPlayers.aspx.cs">
+      <DependentUpon>SelectPlayers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\SelectPlayers.aspx.designer.cs">
+      <DependentUpon>SelectPlayers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Standings.aspx.cs">
+      <DependentUpon>Standings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Standings.aspx.designer.cs">
+      <DependentUpon>Standings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TeamDraft.aspx.cs">
+      <DependentUpon>TeamDraft.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\TeamDraft.aspx.designer.cs">
+      <DependentUpon>TeamDraft.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TeamHistory.aspx.cs">
+      <DependentUpon>TeamHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\TeamHistory.aspx.designer.cs">
+      <DependentUpon>TeamHistory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TeamPage.aspx.cs">
+      <DependentUpon>TeamPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\TeamPage.aspx.designer.cs">
+      <DependentUpon>TeamPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TradeList.aspx.cs">
+      <DependentUpon>TradeList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\TradeList.aspx.designer.cs">
+      <DependentUpon>TradeList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TradePropose.aspx.cs">
+      <DependentUpon>TradePropose.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\TradePropose.aspx.designer.cs">
+      <DependentUpon>TradePropose.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TransactionEditor.aspx.cs">
+      <DependentUpon>TransactionEditor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\TransactionEditor.aspx.designer.cs">
+      <DependentUpon>TransactionEditor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Transactions.aspx.cs">
+      <DependentUpon>Transactions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Transactions.aspx.designer.cs">
+      <DependentUpon>Transactions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\BoxScore.aspx.cs">
+      <DependentUpon>BoxScore.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\BoxScore.aspx.designer.cs">
+      <DependentUpon>BoxScore.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Helpers\SaltedHash.cs" />
+    <Compile Include="Controls\scoreboard.ascx.cs">
+      <DependentUpon>scoreboard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\scoreboard.ascx.designer.cs">
+      <DependentUpon>scoreboard.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TopPlayersLastNight.ascx.cs">
+      <DependentUpon>TopPlayersLastNight.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\TopPlayersLastNight.ascx.designer.cs">
+      <DependentUpon>TopPlayersLastNight.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Site.Master.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Site.Master.designer.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="App_GlobalResources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Logger\Logger.csproj">
+      <Project>{6D4E3E76-4170-4077-AA37-49515CF16A26}</Project>
+      <Name>Logger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StatGrabber\StatGrabber.csproj">
+      <Project>{7091F4AE-13F7-4B9D-B776-B616BB4ECDEC}</Project>
+      <Name>StatGrabber</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>54821</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
