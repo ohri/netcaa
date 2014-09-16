@@ -27,7 +27,7 @@
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql110DatabaseSchemaProvider</DSP>
     <Name>NetbaTradeAggregator</Name>
     <ProjectVersion>4.0</ProjectVersion>
-    <ProjectGuid>{32ac3e6f-c102-42a7-9234-1ef31fa0365c}</ProjectGuid>
+    <ProjectGuid>{22a165a8-5fa0-4d1b-bc21-d0191c0159f8}</ProjectGuid>
     <IncludeSchemaNameInFileName>False</IncludeSchemaNameInFileName>
     <GenerateDatabaseFile>False</GenerateDatabaseFile>
     <GenerateCreateScript>False</GenerateCreateScript>
